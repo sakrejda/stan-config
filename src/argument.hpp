@@ -9,12 +9,12 @@ namespace stan {
         virtual argument() = 0;
         virtual argument(T arg) = 0;
         static const std::string description;
-        static const T;
-        virtual default_value() = 0;
+        static const T default_value;
         static bool is_valid(T value) = 0;
 
       private:
         virtual validate() = 0;
+        T value;
     };
 
     template <typename T> std::string argument<T>::description = "";
