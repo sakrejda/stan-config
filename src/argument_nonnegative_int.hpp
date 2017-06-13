@@ -12,7 +12,7 @@ namespace stan {
         virtual bool is_valid(int value);
 
       private:
-        virtual validate();
+        int value;
     };
 
     std::string argument_nonnegative_int::description = "non-negative integer";

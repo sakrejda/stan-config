@@ -35,19 +35,25 @@ namespace stan {
       return x > 0;
     }
 
+    struct unit_interval_open {
+      template <typename T> static bool valid(T x);
+    };
+
+    template <typename T>
+    bool unit_interval_open::valid(T x) {
+      return x >= 0 && x <= 1;
+    }
+
   }
 }
-
-
-template <typename CC, typename... CC>
 
 
 template <typename T> bool validate (T x) {
   return true;
 }
 
-template <typename T, typename C, typename... CC> bool validate(T x) {
-  return C::valid(x) && validate<T, CC...>(x);
+template <typename C, typename... CC, typename T> bool validate(T x) {
+  return C::valid(x) && validate<CC...>(x);
 }
 
 
