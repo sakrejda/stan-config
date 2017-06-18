@@ -1,42 +1,45 @@
 #include <string>
+#include <exception>
 #include <stan/config/validate.hpp>
+
 
 namespace stan {
   namespace config {
 
-    template <typename T, typename... C>
+    template <typename S, typename T, typename... C>
     class argument {
       public:
 
         argument();
-        argument(typename T::from arg);
-        static bool is_valid(typename T::from value);
+        argument(S arg);
+        static bool is_valid(S value);
 
-      private:
+      protected:
         void validate();
-        typename T::from value;
+        S value;
     };
 
-    template <typename T, typename... C> 
-    argument<T, C...>::argument() : argument<T, C...>::argument(T::default_value) {}
+    template <typename S, typename T, typename... C> 
+    argument<S, T, C...>::argument() : argument<S, T, C...>::argument(T::default_value) {}
 
-    template <typename T, typename... C>
-    argument<T, C...>::argument(typename T::from arg) {
+    template <typename S, typename T, typename... C>
+    argument<S, T, C...>::argument(S arg) {
       value = arg;
       validate();
     }
 
-    template <typename T, typename... C>
-    bool argument<T, C...>::is_valid(typename T::from value) {
+    template <typename S, typename T, typename... C>
+    bool argument<S, T, C...>::is_valid(S value) {
       return stan::config::validate<C...>(value);
     }
 
-    template <typename T, typename... C>
-    void argument<T, C...>::validate() {
+    template <typename S, typename T, typename... C>
+    void argument<S, T, C...>::validate() {
       bool valid = is_valid(value);
-      if (!valid)
-        false;
-        // throw stan::config::invalid_value(value, T::description);
+      if (!valid) {
+        throw;
+        //throw stan::config::invalid_value(value, T::description);
+      }
     }
   }
 }
