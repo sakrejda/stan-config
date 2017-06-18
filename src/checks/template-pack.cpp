@@ -4,6 +4,7 @@
 
 
 int main () {
+  using stan::config::validate;
   using stan::config::integer;
   using stan::config::nonnegative;
   using stan::config::positive;
