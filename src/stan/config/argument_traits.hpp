@@ -17,6 +17,20 @@ namespace stan {
       return true;
     }
 
+    struct boolean {
+      template <typename T> static bool valid(T x);
+    };
+
+    template <typename T> 
+    bool boolean::valid(T x) {
+      return false;
+    }
+
+    template <> 
+    bool boolean::valid<bool>(bool x) {
+      return true;
+    }
+
     struct nonnegative {
       template <typename T> static bool valid(T x);
     };

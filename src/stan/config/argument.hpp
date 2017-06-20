@@ -1,5 +1,6 @@
 #include <string>
 #include <exception>
+#include <stan/config/arg_error.hpp>
 #include <stan/config/validate.hpp>
 
 
@@ -37,8 +38,7 @@ namespace stan {
     void argument<S, T, C...>::validate() {
       bool valid = is_valid(value);
       if (!valid) {
-        throw;
-        //throw stan::config::invalid_value(value, T::description);
+        throw stan::config::invalid_argument<T>(value);
       }
     }
   }

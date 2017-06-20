@@ -18,10 +18,17 @@ int main () {
   v.push_back(A);
   std::cout << "should work: " << std::endl;
   stan::config::thin B(i);
-  std::cout << "should not work, zero: " << std::endl;
-  stan::config::thin C(j);
-  std::cout << "should not work, negative: " << std::endl;
-  stan::config::thin D(k);
+  std::cout << "worked " << std::endl;
+  try {
+    stan::config::thin C(j);
+  } catch (...) {
+    std::cout << "should not work, zero: " << std::endl;
+  }
+  try {
+    stan::config::thin D(k);
+  } catch (...) {
+    std::cout << "should not work, negative: " << std::endl;
+  }
 
   std::cout << "Finished." << std::endl;
   return 0;
