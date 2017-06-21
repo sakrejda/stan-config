@@ -4,21 +4,21 @@
 #include <stan/config/argument_traits.hpp>
 #include <stan/config/validate.hpp>
 
-TEST(validate, positiveInteger) {
+TEST(validate, nonnegativeInteger) {
   using stan::config::validate;
-  using stan::config::positive;
+  using stan::config::nonnegative;
   using stan::config::integer;
 
-  bool valid = validate<positive, integer>(3);
+  bool valid = validate<nonnegative, integer>(3);
   EXPECT_TRUE(valid);
 
-  valid = validate<positive, integer>(0);
+  valid = validate<nonnegative, integer>(0);
+  EXPECT_TRUE(valid);
+
+  valid = validate<nonnegative, integer>(3.3);
   EXPECT_FALSE(valid);
 
-  valid = validate<positive, integer>(3.3);
-  EXPECT_FALSE(valid);
-
-  valid = validate<positive, integer>(-3.3);
+  valid = validate<nonnegative, integer>(-3.3);
   EXPECT_FALSE(valid);
 
 }
