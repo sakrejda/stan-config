@@ -40,6 +40,11 @@ namespace stan {
       return x >= 0;
     }
 
+    template <>
+    bool nonnegative::valid<std::string>(std::string x) {
+      return false;
+    }
+
     struct positive {
       template <typename T> static bool valid(T x);
     };
@@ -49,6 +54,11 @@ namespace stan {
       return x > 0;
     }
 
+    template <>
+    bool positive::valid<std::string>(std::string x) {
+      return false;
+    }
+
     struct unit_interval_open {
       template <typename T> static bool valid(T x);
     };
@@ -56,6 +66,11 @@ namespace stan {
     template <typename T>
     bool unit_interval_open::valid(T x) {
       return x >= 0 && x <= 1;
+    }
+
+    template <>
+    bool unit_interval_open::valid<std::string>(std::string x) {
+      return false;
     }
 
   }
