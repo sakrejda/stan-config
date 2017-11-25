@@ -17,6 +17,20 @@ namespace stan {
       return true;
     }
 
+    struct boolean {
+      template <typename T> static bool valid(T x);
+    };
+
+    template <typename T> 
+    bool boolean::valid(T x) {
+      return false;
+    }
+
+    template <> 
+    bool boolean::valid<bool>(bool x) {
+      return true;
+    }
+
     struct nonnegative {
       template <typename T> static bool valid(T x);
     };
@@ -26,6 +40,11 @@ namespace stan {
       return x >= 0;
     }
 
+    template <>
+    bool nonnegative::valid<std::string>(std::string x) {
+      return false;
+    }
+
     struct positive {
       template <typename T> static bool valid(T x);
     };
@@ -33,6 +52,11 @@ namespace stan {
     template <typename T>
     bool positive::valid(T x) {
       return x > 0;
+    }
+
+    template <>
+    bool positive::valid<std::string>(std::string x) {
+      return false;
     }
 
     struct unit_interval_open {
@@ -53,16 +77,12 @@ namespace stan {
       return x >= 0 && x <= 1;
     }
 
+    template <>
+    bool unit_interval_open::valid<std::string>(std::string x) {
+      return false;
+    }
+
   }
-}
-
-
-template <typename T> bool validate (T x) {
-  return true;
-}
-
-template <typename C, typename... CC, typename T> bool validate(T x) {
-  return C::valid(x) && validate<CC...>(x);
 }
 
 
