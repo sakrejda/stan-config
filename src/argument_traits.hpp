@@ -41,6 +41,15 @@ namespace stan {
 
     template <typename T>
     bool unit_interval_open::valid(T x) {
+      return x > 0 && x < 1;
+    }
+
+    struct unit_interval_close {
+      template <typename T> static bool valid(T x);
+    };
+
+    template <typename T>
+    bool unit_interval_close::valid(T x) {
       return x >= 0 && x <= 1;
     }
 

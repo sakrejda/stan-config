@@ -14,6 +14,7 @@ namespace stan {
 
       private:
         virtual validate() = 0;
+        virtual cast(const char*) = 0;
         T value;
     };
 
