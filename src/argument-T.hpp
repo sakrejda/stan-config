@@ -27,7 +27,7 @@ namespace stan {
 
     template <typename T, typename... VV, typename N> argument(const char* arg) :
       value(boost::lexical_cast<T>(arg)) {
-        if(!validate<<VV...>(value)) throw;
+        if(!validate<VV...>(value)) throw;
       }
 
     template <typename T, typename... VV, typename N> name = N::name;
